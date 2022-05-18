@@ -13,6 +13,7 @@ import {
 import { ProductsService } from './../services/products.service';
 import { Product } from '../entities/product.entity';
 import { ParseStringPipe } from '../../common/parse-string.pipe';
+import {ApiImplicitQuery} from "@nestjs/swagger/dist/decorators/api-implicit-query.decorator";
 
 @ApiTags('products')
 @Controller('products')
@@ -36,6 +37,16 @@ export class ProductsController {
     description: 'Invalid query',
     status: 400,
     content: {},
+  })
+  @ApiImplicitQuery({
+    name: 'id',
+    required: false,
+    type: String,
+  })
+  @ApiImplicitQuery({
+    name: 'searchText',
+    required: false,
+    type: String,
   })
   getProducts(
     @Query('id', ParseStringPipe) id?: string,
