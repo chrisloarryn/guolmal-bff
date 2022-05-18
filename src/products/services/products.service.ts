@@ -2,9 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 
 import { Product, Params } from './../entities/product.entity';
 import { HttpService } from '@nestjs/axios';
-import { isNil } from '@nestjs/common/utils/shared.utils';
 import axios, { AxiosResponse } from 'axios';
-import {date} from "joi";
 
 @Injectable()
 export class ProductsService {
@@ -43,7 +41,6 @@ export class ProductsService {
       .get(findUrl)
       .then((response) => {
         if (response.data.length > 0) {
-
           this.products = response.data?.map((p) => new Product(p).make());
         } else {
           this.products = [];
@@ -54,22 +51,5 @@ export class ProductsService {
       });
 
     return this.products;
-    // return this.http.get(findUrl).((data: AxiosResponse<any>) => {
-    //   // console.log(data.data);
-    //   if (isNil(data)) {
-    //     this.products = [];
-    //   }
-    //   if (
-    //     isNil(data.data?.message) ||
-    //     data.data?.length == 0 ||
-    //     data.data.message === 'Not Found'
-    //   ) {
-    //     this.products = [];
-    //   }
-    //
-    //   if (data.statusText === 'OK' || data.status == 200) {
-    //     this.products = data.data;
-    //   }
-    // });
   }
 }
