@@ -9,8 +9,12 @@ interface IProduct {
   calculatedPrice?: number;
 }
 
+export class ErrorEntity {
+  message: string;
+  code: number;
+}
+
 export class Product {
-  // private product: IProduct;
   private readonly _id: string;
   private readonly id: string;
   private readonly brand: string;
@@ -38,7 +42,7 @@ export class Product {
       description: this.description,
       image: this.image,
       price: this.price,
-      isPalindrome: this.isPalindrome,
+      isPalindrome: this.isPalindrome ?? false,
       calculatedPrice: this.calculatedPrice,
     };
   }

@@ -1,8 +1,4 @@
-import {
-  Controller,
-  Get, HttpCode, HttpStatus,
-  Query,
-} from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import {
   ApiTags,
   ApiOperation,
@@ -10,10 +6,10 @@ import {
   ApiNoContentResponse,
   ApiBadRequestResponse,
 } from '@nestjs/swagger';
-import { ProductsService } from './../services/products.service';
-import { Product } from '../entities/product.entity';
+import { ProductsService } from '../services/products.service';
+import { ErrorEntity, Product } from '../entities/product.entity';
 import { ParseStringPipe } from '../../common/parse-string.pipe';
-import {ApiImplicitQuery} from "@nestjs/swagger/dist/decorators/api-implicit-query.decorator";
+import { ApiImplicitQuery } from '@nestjs/swagger/dist/decorators/api-implicit-query.decorator';
 
 @ApiTags('products')
 @Controller('products')
@@ -29,14 +25,22 @@ export class ProductsController {
   })
   @ApiNoContentResponse({
     description: 'No products found',
-    content: {},
+    content: undefined,
+    headers: undefined,
+    links: undefined,
+    schema: undefined,
+    isArray: false,
     status: 204,
   })
   @ApiBadRequestResponse({
+    content: undefined,
+    headers: undefined,
+    links: undefined,
+    schema: undefined,
     isArray: false,
     description: 'Invalid query',
     status: 400,
-    content: {},
+    type: ErrorEntity,
   })
   @ApiImplicitQuery({
     name: 'id',
