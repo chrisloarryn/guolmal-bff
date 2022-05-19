@@ -1,6 +1,6 @@
 import {
   Controller,
-  Get,
+  Get, HttpCode, HttpStatus,
   Query,
 } from '@nestjs/common';
 import {
@@ -48,10 +48,10 @@ export class ProductsController {
     required: false,
     type: String,
   })
-  getProducts(
+  async getProducts(
     @Query('id', ParseStringPipe) id?: string,
     @Query('searchText', ParseStringPipe) searchText?: string,
   ) {
-    return this.productsService.findAll({ searchText, id });
+    return await this.productsService.findAll({ searchText, id });
   }
 }
